@@ -1,4 +1,5 @@
 <?php
+    const TOKEN_LIFE = 'time()+3600';
 
     $redis = new Redis();
     $redis->connect("127.0.0.1","6379");
@@ -19,8 +20,8 @@
             $token = random_int(PHP_INT_MIN, PHP_INT_MAX);
             $redis->select(1);
             $redis->set($token, $login);
-            $redis->expire($token, time()+120);     //time the token expires
-            setcookie("token", $token, time()+120);
+            $redis->expire($token, (int)TOKEN_LIFE);     //time the token expires
+            setcookie("token", $token, (int)TOKEN_LIFE);
             $redis->close();
             header('Location: http://127.0.0.2/index.php?login='.$login);
             die();
