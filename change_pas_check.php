@@ -1,4 +1,5 @@
 <?php
+    const PAS_LIFE = 'time()+3600';
 
     if($_GET["password"] != $_GET["confirm_password"]) {
         header('Location: http://127.0.0.2/forg_pas_ok.php'."?code=400");
@@ -23,6 +24,7 @@
         }
 
         $redis->hSet($login, "password", $password);
+        $redis->hSet($login, "password_expires", PAS_LIFE);
         $redis->close();
         header('Location: http://127.0.0.2/index.php?login='.$login);   //all OK
     } else {

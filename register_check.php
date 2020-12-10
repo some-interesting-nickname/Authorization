@@ -1,5 +1,6 @@
 
 <?php
+    const PAS_LIFE = 'time()+3600';
 
     if($_GET["password"] != $_GET["confirm_password"]) {
         header('Location: http://127.0.0.2/register.php'."?code=400");
@@ -19,7 +20,7 @@
             "password" => $password,
             "food" => $food,
             "salt" => $salt,
-            "password_expires" => time()+120
+            "password_expires" => PAS_LIFE
         );
         $redis->hMSet($login, $tmp_array);
         $redis->close();
