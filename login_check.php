@@ -8,7 +8,7 @@
     if($redis->exists($login)) {
         $password = $redis->hGet($login, "password");
         $salt = $redis->hGet($login, "salt");
-        if($redis->get($login, "password_expires") < time()) {
+        if($redis->hGet($login, "password_expires") < time()) {
             $redis->close();
             header('Location: http://127.0.0.2/change_pas.php?code=401');
             die();
